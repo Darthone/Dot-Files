@@ -12,7 +12,7 @@ kien/rainbow_parentheses.vim
 davidhalter/jedi-vim  
 ervandew/supertab  
 vim-scripts/cSyntaxAfter  
-  
+osyo-manga/vim-brightest  
   
 Vim Color Theme
 -------------------------
