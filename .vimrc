@@ -1,4 +1,4 @@
-set all& 
+set all& " reset all settings
 
 syntax on
 set background=dark
@@ -7,6 +7,8 @@ colorscheme molokai
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+"to install vundle
+"git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
@@ -16,12 +18,18 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/cSyntaxAfter'
 Plugin 'ervandew/supertab'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+
+"To install vundle plugins 
+"vim +PluginInstall +qall
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 filetype plugin on
 filetype indent on
 
+" indenting
 set backspace=indent,eol,start
 set smartindent
 set tabstop=4
@@ -29,6 +37,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+"misc settings
 set number   
 set incsearch
 set hlsearch
@@ -36,8 +45,12 @@ set scrolloff=12
 set showmatch 
 set cursorline
 
+"execute for pathogen install
+"mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+"curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 execute pathogen#infect()
 
+"shortcuts
 set pastetoggle=<F3>
 nnoremap <F2> :set invnumber<CR>
 map <F4> :NERDTreeToggle<CR>
