@@ -3,6 +3,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias tm='tmux attach || tmux new' 
 
 # some more ls aliases
 alias ll='ls -alF --human-readable'
