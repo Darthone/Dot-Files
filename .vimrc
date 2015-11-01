@@ -20,14 +20,16 @@ Plugin 'vim-scripts/cSyntaxAfter'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
+Plugin 'terryma/vim-expand-region'
+
 
 "To install vundle plugins 
 "vim +PluginInstall +qall
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-filetype plugin on
-filetype indent on
 
 " indenting
 set backspace=indent,eol,start
@@ -37,7 +39,6 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-"misc settings
 set number   
 set incsearch
 set hlsearch
@@ -45,15 +46,35 @@ set scrolloff=12
 set showmatch 
 set cursorline
 
+set showtabline=2
+set laststatus=2
+
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
 "execute for pathogen install
 "mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 "curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 execute pathogen#infect()
 
 "shortcuts
+let mapleader = "\<Space>"
+nnoremap <Leader>2 :%s/\s\+$//e<CR>
+nmap <Leader><Leader> V
+nnoremap <Leader>w :w<CR>
+
 set pastetoggle=<F3>
 nnoremap <F2> :set invnumber<CR>
 map <F4> :NERDTreeToggle<CR>
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -91,3 +112,7 @@ au VimEnter * RainbowParenthesesToggle
 au VimEnter * RainbowParenthesesLoadRound
 au VimEnter * RainbowParenthesesLoadSquare
 au VimEnter * RainbowParenthesesLoadBraces
+
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
