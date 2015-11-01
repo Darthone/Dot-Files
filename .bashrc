@@ -3,6 +3,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias tm='tmux attach || tmux new'
 
 # some more ls aliases
 alias ll='ls -alF --human-readable'
@@ -42,9 +43,9 @@ export PS1="\[\e[38;5;124m\]\t\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[38;5;118m\]\u
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+#if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#    . /etc/bash_completion
+#fi
 
 eval "$(dircolors ~/.dir_colors)"
 export TERM=screen-256color
