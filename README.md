@@ -1,6 +1,7 @@
 Dot Files
 =======
 
+```cd Dot-Files/ && ./setup.sh``` 
 
 Vim Plugins
 -----------------
