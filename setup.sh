@@ -15,3 +15,5 @@ vim +PluginInstall +qall
 echo | echo | vim +PluginInstall +qall &>/dev/null
 mkdir -p ~/.vim/colors/ && cp ~/.vim/bundle/molokai/colors/molokai.vim ~/.vim/colors/
 
+source ~/.bashrc
+
