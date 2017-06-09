@@ -11,8 +11,6 @@ alias la='ls -al --human-readable'
 alias l='ls -alF --human-readable'
 alias s='cd ..'
 
-export GREP_OPTIONS='--color=auto'
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
