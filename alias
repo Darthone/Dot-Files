@@ -1,0 +1,33 @@
+alias editalias="vi ~/.alias"
+alias editlocalrc="vi ~/.localrc"
+alias resource="source ~/.bashrc"
+
+alias tm='tmux attach'
+alias c="clear"
+alias e="vim -O"
+alias beep="echo -e \"\a\""
+alias list-tcp-listeners="lsof -iTCP -sTCP:LISTEN -P +c0"
+alias svim="sudo vi"
+
+alias please="sudo !!"
+
+
+# Directory navigation aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias s='cd ..'
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# some more ls aliases
+alias ll='ls -alF --human-readable'
+alias la='ls -al --human-readable'
+alias l='ls -alF --human-readable'
+
+
+
