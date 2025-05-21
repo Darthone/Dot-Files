@@ -3,13 +3,18 @@ alias editlocalrc="vi ~/.localrc"
 alias resource="source ~/.bashrc"
 
 alias tm='tmux attach'
+alias del='rm -rfi'
 alias c="clear"
 alias e="vim -O"
+alias :q="exit"
+
 alias beep="echo -e \"\a\""
 alias list-tcp-listeners="lsof -iTCP -sTCP:LISTEN -P +c0"
-alias svim="sudo vi"
 
+alias svim="sudo vi"
 alias please="sudo !!"
+
+alias wcl="wc -l"
 
 
 # Directory navigation aliases
@@ -29,5 +34,10 @@ alias ll='ls -alF --human-readable'
 alias la='ls -al --human-readable'
 alias l='ls -alF --human-readable'
 
+alias ports="netstat -tulanp"
+alias psmem="ps auxf | sort -nr -k 4"
+alias pscpu="ps auxf | sort -nr -k 3"
+
+# build shortcuts
 
 
