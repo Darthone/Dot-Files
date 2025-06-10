@@ -69,5 +69,7 @@ source ~/.alias
 source ~/.localrc
 
 
-
+# home brew install
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/:/home/linuxbrew/.linuxbrew/bin/
 

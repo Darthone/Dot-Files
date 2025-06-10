@@ -11,6 +11,7 @@ alias
 alias.fish
 bashrc
 bin:bin
+.config:.config
 config/fish/config.fish:config/fish/config.fish
 config/fish/fish_plugins:config/fish/fish_plugins
 config/fish/functions/fish_prompt.fish:config/fish/functions/fish_prompt.fish
