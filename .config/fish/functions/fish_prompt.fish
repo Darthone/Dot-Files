@@ -26,4 +26,3 @@ function fish_prompt
     echo -n -s (date +%H:%M:%S) " " (set_color $color_cwd) (prompt_pwd) (set_color cyan) " $branch" (set_color normal) "$stat $suffix "
 
 end
-
