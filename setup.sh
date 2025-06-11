@@ -1,19 +1,35 @@
 #!/bin/bash
-#Config files
-cat .bashrc >> ~/.bashrc
-cp .dir_colors ~/
-cp .tmux.conf ~/
-cp .vimrc ~/.vimrc
-cp -r .vim/ ~/
 
-cd ~/
+# install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install starship jq fzf nvim
+export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
-#vim setup
-mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-echo | echo | vim +PluginInstall +qall &>/dev/null
-mkdir -p ~/.vim/colors/ && cp ~/.vim/bundle/molokai/colors/molokai.vim ~/.vim/colors/
+cd 
+# clone ssh version since https is no longer supported
+git clone git@github.com:Darthone/Dot-Files.git .dotfiles/;
 
-source ~/.bashrc
+cd .dotfiles/
+git submodule update --init # pull dotsync bin
+cp dotsyncrc ~/.dotsyncrc # bootstrap
+
+
+hostname
+
+
+# put hostname into dotsync
+vi ~/.dotsyncrc
+
+~/.dotfiles/dotsync/bin/dotsync -L
+
+touch ~/.localrc
+# Add any specific local only configs
+
+source ~/.config/fish/config.fish
+# install fisher
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+fisher update
+
+# open neovim to install plugins
+nvim
 

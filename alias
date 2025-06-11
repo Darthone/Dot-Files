@@ -1,3 +1,4 @@
+#! /bin/bash
 alias editalias="vi ~/.alias"
 alias editlocalrc="vi ~/.localrc"
 alias resource="source ~/.bashrc"
@@ -5,7 +6,8 @@ alias resource="source ~/.bashrc"
 alias tm='tmux attach'
 alias del='rm -rfi'
 alias c="clear"
-alias e="vim -O"
+alias e="nvim -O"
+alias vi="nvim -O"
 alias :q="exit"
 
 alias beep="echo -e \"\a\""
@@ -28,6 +30,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias grv='grep -v'
 
 # some more ls aliases
 alias ll='ls -alF --human-readable'

@@ -29,4 +29,4 @@ end
 # prompt
 # vi ~/.config/fish/functions/fish_prompt.fish
 
-
+starship init fish | source
