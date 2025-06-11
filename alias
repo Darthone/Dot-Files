@@ -44,3 +44,6 @@ alias pscpu="ps auxf | sort -nr -k 3"
 # build shortcuts
 
 
+# git shortcuts
+#
+

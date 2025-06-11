@@ -8,8 +8,12 @@ end
 
 set fish_greeting ""
 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
 alias resource="source ~/.config/fish/config.fish"
-alias editrc="vim ~/.config/fish/config.fish"
+alias editrc="nvim ~/.config/fish/config.fish"
+
 
 set -U fish_user_paths $HOME/bin $fish_user_paths
 

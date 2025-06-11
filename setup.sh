@@ -2,7 +2,7 @@
 
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install starship jq fzf nvim
+brew install starship jq fzf nvim ripgrep
 export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
 cd 

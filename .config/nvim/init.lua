@@ -49,6 +49,74 @@ vim.g.rainbow_delimiters = {
 vim.g.snacks_animate = false
 
 
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+
+local telescope = require('telescope')
+telescope.setup {
+    pickers = {
+        find_files = {
+            hidden = true
+        }
+    }
+}
+
+
+
+-- inspired by https://slar.se/comment-and-uncomment-code-in-neovim.html
+-- aided by chatgpt
+local non_c_line_comments_by_filetype = {
+    lua = "--",
+    python = "#",
+    fish = "#",
+    sql = "--",
+}
+
+local function toggle_comments(opts)
+    local comment = non_c_line_comments_by_filetype[vim.bo.filetype] or "//"
+    local start_line = opts.line1
+    local end_line = opts.line2
+
+    local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+    -- Check if all lines are already commented
+    local all_commented = true
+    for _, line in ipairs(lines) do
+        if not line:match("^%s*" .. vim.pesc(comment)) then
+            all_commented = false
+            break
+        end
+    end
+
+    local new_lines = {}
+    if all_commented then
+        -- Uncomment
+        for _, line in ipairs(lines) do
+            local uncommented = line:gsub("^%s*" .. vim.pesc(comment) .. "%s?", "", 1)
+            table.insert(new_lines, uncommented)
+        end
+    else
+        -- Comment
+        for _, line in ipairs(lines) do
+            table.insert(new_lines, comment .. " " .. line)
+        end
+    end
+
+    -- Replace lines in buffer
+    vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
+end
+
+vim.api.nvim_create_user_command("CommentOut", toggle_comments, { range = true })
+vim.keymap.set("v", "<leader>/", ":'<,'>CommentOut<CR>")
+vim.keymap.set("n", "<leader>/", ":CommentOut<CR>")
+
+
+
+
 -- Personal Shortcuts
 -- Replace current word everywhere
 vim.api.nvim_set_keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>//g<left><left>]], {})
