@@ -2,6 +2,7 @@
 alias editalias="vi ~/.alias"
 alias editlocalrc="vi ~/.localrc"
 alias resource="source ~/.bashrc"
+alias resource_tmux="tmux source ~/.tmux.conf"
 
 alias tm='tmux attach'
 alias del='rm -rfi'

@@ -128,6 +128,10 @@ vim.api.nvim_set_keymap("n", "<leader>s", [[:w<CR>]], {})
 vim.api.nvim_set_keymap("n", "<leader>2", [[:set invnumber<CR>]], {})
 
 
+-- typos
+vim.api.nvim_create_user_command('W', 'w', { nargs = 0 })
+vim.api.nvim_create_user_command('Q', 'q', { nargs = 0 })
+
 -- Move between splits using leader + {h,j,k,l}
 vim.api.nvim_set_keymap('n', '<leader>h', '<C-w>h', {})
 vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>j', {})
