@@ -52,6 +52,18 @@ export TERM=screen-256color
 alias editrc="vi ~/.bashrc"
 alias ssa="eval $(ssh-agent)"
 
+# Start ssh-agent if needed and preload the default key for forwarding.
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" >/dev/null
+fi
+if [ -f ~/.ssh/id_ed25519 ]; then
+    ssh-add -l >/dev/null 2>&1
+    if [ $? -eq 2 ]; then
+        eval "$(ssh-agent -s)" >/dev/null
+    fi
+    ssh-add -l 2>/dev/null | grep -q "id_ed25519" || ssh-add ~/.ssh/id_ed25519 >/dev/null 2>&1
+fi
+
 mkcd() {
     mkdir -p "$1" && cd "$1"
 }
@@ -73,3 +85,7 @@ source ~/.localrc
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/:/home/linuxbrew/.linuxbrew/bin/
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

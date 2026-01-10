@@ -83,7 +83,11 @@ autocmd! BufRead,BufNewFile,BufEnter *.{c,cpp,h,javascripti,py} call CSyntaxAfte
 
 "let g:pydiction_location = '/home/dario/.vim/bundle/pydiction/complete-dict'
 "let g:SuperTabDefaultCompletionType = "context"
+let g:CommandTPreferredImplementation='lua'
+
 let g:jedi#completions_command = "<Tab>"
+let g:CommandTPreferredImplementation='lua'
+
 autocmd FileType python setlocal completeopt-=preview
 
 let g:rbpt_colorpairs = [
@@ -118,3 +122,4 @@ if has("autocmd")
 endif
 
 set term=xterm-256color
+

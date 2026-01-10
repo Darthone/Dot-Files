@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "fgdb: not in a git repository" >&2
+    exit 1
+fi
+
+if ! command -v fzf >/dev/null 2>&1; then
+    echo "fgdb: fzf not found in PATH" >&2
+    exit 1
+fi
+
+mapfile -d '' -t selections < <(
+    git for-each-ref \
+        --format='%(refname:short)%09%(committerdate:relative)%09%(upstream:short)%09%(upstream:track)' \
+        refs/heads \
+    | awk -F '\t' '{
+        gone = "-";
+        if ($3 != "") {
+            if ($4 ~ /\[gone\]/) {
+                gone = "gone";
+            } else {
+                gone = "ok";
+            }
+        }
+        printf "%s\t%s\t%s\t%s\n", $1, $2, $3, gone;
+    }' \
+    | fzf --ansi --multi --delimiter='\t' --with-nth=1,2,3,4 \
+        --prompt='git branch -d> ' \
+        --header='branch\tupdated\tupstream\tremote' \
+        --preview 'git log --color=always --graph --decorate -n 25 {1} && echo && git show -s --color=always --format="%C(cyan)Last commit:%C(reset) %cr" {1}' \
+        --preview-window=right,60%,wrap \
+        --print0
+)
+
+if [ ${#selections[@]} -eq 0 ]; then
+    exit 0
+fi
+
+failed=0
+for sel in "${selections[@]}"; do
+    branch=${sel%%$'\t'*}
+    if ! git branch -d -- "$branch"; then
+        failed=1
+    fi
+done
+
+if [ $failed -ne 0 ]; then
+    echo "fgdb: one or more branches could not be deleted (not fully merged?)" >&2
+    exit 1
+fi

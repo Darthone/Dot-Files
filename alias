@@ -47,4 +47,12 @@ alias pscpu="ps auxf | sort -nr -k 3"
 
 # git shortcuts
 #
-
+alias g="git"
+alias gd="git diff"
+alias gs="g status"
+alias gcm="g commit -m"
+alias ga="g add"
+alias gcom="g checkout main"
+alias gb="gco -b"
+alias gl="git pull"
+alias gco="git checkout"

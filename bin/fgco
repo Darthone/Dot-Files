@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "fgco: not in a git repository" >&2
+    exit 1
+fi
+
+if ! command -v fzf >/dev/null 2>&1; then
+    echo "fgco: fzf not found in PATH" >&2
+    exit 1
+fi
+
+branch=$(
+    git for-each-ref \
+        --format='%(refname:short)%09%(committerdate:relative)%09%(committerdate:iso8601)' \
+        refs/heads \
+    | fzf --ansi --no-multi --delimiter='\t' --with-nth=1,2 \
+        --prompt='git switch> ' \
+        --preview 'git log --color=always --graph --decorate -n 25 {1} && echo && git show -s --color=always --format="%C(cyan)Last updated:%C(reset) %cr" {1}' \
+        --preview-window=right,60%,wrap
+)
+
+if [ -z "${branch}" ]; then
+    exit 0
+fi
+
+git switch "${branch%%$'\t'*}"

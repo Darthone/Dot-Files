@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "fga: not in a git repository" >&2
+    exit 1
+fi
+
+if ! command -v fzf >/dev/null 2>&1; then
+    echo "fga: fzf not found in PATH" >&2
+    exit 1
+fi
+
+mapfile -d '' -t files < <(
+python3 - <<'PY' | fzf \
+    --read0 --print0 --multi --prompt='git add> ' \
+    --preview 'if git ls-files --others --exclude-standard -- {} | grep -q .; then sed -n "1,200p" -- {}; else git status --short -- {} && echo && git diff --color=always -- {} && echo && git diff --cached --color=always -- {} && echo && git log -1 --stat -- {}; fi' \
+    --preview-window=right,60%,wrap
+import subprocess
+
+data = subprocess.run(
+    ["git", "status", "--porcelain", "-z"],
+    check=True,
+    stdout=subprocess.PIPE,
+).stdout
+
+out = []
+i = 0
+n = len(data)
+
+while i < n:
+    status = data[i:i + 2]
+    i += 2
+    if i < n and data[i:i + 1] == b" ":
+        i += 1
+    end = data.index(b"\0", i)
+    path = data[i:end].decode("utf-8", "replace")
+    i = end + 1
+    if status[:1] in (b"R", b"C"):
+        end = data.index(b"\0", i)
+        newpath = data[i:end].decode("utf-8", "replace")
+        i = end + 1
+        path = newpath
+    if status == b"??" or status[1:2] != b" ":
+        out.append(path)
+
+if out:
+    import sys
+    sys.stdout.buffer.write(b"\0".join(p.encode("utf-8") for p in out))
+PY
+)
+
+if [ ${#files[@]} -eq 0 ]; then
+    exit 0
+fi
+
+git add -- "${files[@]}"
