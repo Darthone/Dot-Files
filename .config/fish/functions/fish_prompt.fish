@@ -23,6 +23,8 @@ function fish_prompt
 
     set -l branch (git branch 2>/dev/null | sed -n '/\* /s///p')
 
-    echo -n -s (date +%H:%M:%S) " " (set_color $color_cwd) (prompt_pwd) (set_color cyan) " $branch" (set_color normal) "$stat $suffix "
+    set -l host (hostname -s)
+
+    echo -n -s (date +%H:%M:%S) " " (set_color yellow) $host (set_color normal) " " (set_color $color_cwd) (prompt_pwd) (set_color cyan) " $branch" (set_color normal) "$stat $suffix "
 
 end
