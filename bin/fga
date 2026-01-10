@@ -14,7 +14,7 @@ fi
 mapfile -d '' -t files < <(
 python3 - <<'PY' | fzf \
     --read0 --print0 --multi --prompt='git add> ' \
-    --preview 'if git ls-files --others --exclude-standard -- {} | grep -q .; then sed -n "1,200p" -- {}; else git status --short -- {} && echo && git diff --color=always -- {} && echo && git diff --cached --color=always -- {} && echo && git log -1 --stat -- {}; fi' \
+    --preview 'bash -c "if git ls-files --others --exclude-standard -- \"\$1\" | grep -q .; then sed -n \"1,200p\" -- \"\$1\"; else git status --short -- \"\$1\" && echo && git diff --color=always -- \"\$1\" && echo && git diff --cached --color=always -- \"\$1\" && echo && git log -1 --stat -- \"\$1\"; fi" -- {}' \
     --preview-window=right,60%,wrap
 import subprocess
 

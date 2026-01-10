@@ -81,7 +81,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd! BufRead,BufNewFile,BufEnter *.{c,cpp,h,javascripti,py} call CSyntaxAfter()
 
-"let g:pydiction_location = '/home/dario/.vim/bundle/pydiction/complete-dict'
+"let g:pydiction_location = $HOME . '/.vim/bundle/pydiction/complete-dict'
 "let g:SuperTabDefaultCompletionType = "context"
 let g:CommandTPreferredImplementation='lua'
 
