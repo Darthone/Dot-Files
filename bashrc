@@ -80,6 +80,8 @@ gr() {
 source ~/.alias
 source ~/.localrc
 
+# Prefer user-level binaries before system defaults
+export PATH="$HOME/.local/bin:$PATH"
 
 # home brew install
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
